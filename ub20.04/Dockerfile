@@ -41,12 +41,16 @@ RUN apt-get update \
     dialog \
     fontconfig \
     apt-utils \
+    nodejs \
+    npm \
+    ripgrep \
  && apt-get clean
 
 # Install a good neovim version
 RUN add-apt-repository -y ppa:neovim-ppa/stable \
         && apt-get update \
         && apt-get install -y neovim
+RUN pip3 install pyright
 
 # Add a user with the same user_id as the user outside the container
 # Requires a docker build argument `user_id`
@@ -66,6 +70,9 @@ ENV LANGUAGE en_US:en
 
 # Commands below run as the developer user
 USER $USER
+
+# Create directory structure
+RUN mkdir -p ~/.local/share
 
 # When running a container start in the developer's home folder
 WORKDIR /home/$USER
