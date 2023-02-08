@@ -17,10 +17,11 @@ then
 fi
 
 user_id=$(id -u)
+user_name=$(whoami)
 image_name=$(basename $1)
 image_plus_tag=fclad/$image_name:latest
 
-docker build --rm -t $image_plus_tag --build-arg user_id=$user_id $DIR/$image_name
+docker build --rm -t $image_plus_tag --build-arg user_id=$user_id --build-arg user_name=$user_name $DIR/$image_name
 
 echo "Built $image_plus_tag and tagged as $image_name:latest"
 

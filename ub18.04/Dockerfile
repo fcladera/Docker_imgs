@@ -35,7 +35,9 @@ RUN apt-get update \
 # Add a user with the same user_id as the user outside the container
 # Requires a docker build argument `user_id`
 ARG user_id
-env USER fclad
+ARG user_name
+env USER $user_name
+
 RUN useradd -U --uid ${user_id} -m -s /bin/bash $USER \
  && echo "$USER:$USER" | chpasswd \
  && adduser $USER sudo \
